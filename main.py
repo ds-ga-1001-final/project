@@ -2,6 +2,7 @@ from fileIO import *
 from DecisionTree import *
 from cleandata import *
 from DecisionTree.decision_tree import evaluateDecisionTree
+from LogisticRegression.logistic_regression import *
 
 def main():
     '''
@@ -12,7 +13,7 @@ def main():
     print train_x,'\n'
     print type(train_x)
     evaluateDecisionTree(train_x,train_y,test_x,test_y)
-    
+    #evaluateLogisticRegression(train_x,train_y,test_x,test_y)
     
 if __name__ == '__main__':
     main()

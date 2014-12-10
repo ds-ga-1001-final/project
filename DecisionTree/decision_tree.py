@@ -21,8 +21,9 @@ def plotAUC(truth,pred,lab):
     '''
     fpr,tpr,thresholds = roc_curve(truth,pred)
     roc_auc = auc(fpr,tpr)
-    c = (np.random.rand(),np.random.rand(),np.random.rand())
-    plt.plot(fpr,tpr,color=c,label=lab+'(AUC = %0.2f)'&roc_auc)
+    print 'auc score:\n',roc_auc
+#     c = (np.random.rand(),np.random.rand(),np.random.rand())
+    plt.plot(fpr,tpr)
     plt.plot([0,1],[0,1],'k--')
     plt.xlim([0.,1.])
     plt.ylim([0.,1.])
@@ -30,6 +31,7 @@ def plotAUC(truth,pred,lab):
     plt.ylabel('TPR')
     plt.title('ROC')
     plt.legend(loc='best')
+    plt.show()
             
 def evaluateDecisionTree(train_x,train_y,test_x,test_y):
     clf = DecisionTreeClassifier(criterion='entropy',min_samples_leaf=1,max_depth=3)

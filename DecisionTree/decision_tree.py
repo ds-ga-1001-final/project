@@ -34,7 +34,7 @@ def plotAUC(truth,pred,lab):
     plt.show()
             
 def evaluateDecisionTree(train_x,train_y,test_x,test_y):
-    clf = DecisionTreeClassifier(criterion='entropy',min_samples_leaf=1,max_depth=3)
+    clf = DecisionTreeClassifier(criterion='entropy',min_samples_leaf=5,max_depth=20)
     clf.fit(train_x,train_y)
     p = clf.predict_proba(test_x)[:,1]
     auc = roc_auc_score(test_y,p)

@@ -10,8 +10,9 @@ import scipy as sp
 import matplotlib.pyplot as plt
 
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.tree import export_graphviz
-import StringIO, pydot
+import StringIO
 
 from sklearn.metrics import roc_auc_score,roc_curve,auc
 
@@ -33,13 +34,15 @@ def plotAUC(truth,pred,lab):
     plt.legend(loc='best')
     plt.show()
             
-def evaluateDecisionTree(train_x,train_y,test_x,test_y):
-    clf = DecisionTreeClassifier(criterion='entropy',min_samples_leaf=1,max_depth=3)
-    clf.fit(train_x,train_y)
-    p = clf.predict_proba(test_x)[:,1]
-    auc = roc_auc_score(test_y,p)
-    plotAUC(test_y,clf.predict_proba(test_x)[:,1],'DT')
+def evaluateLogisticRegression(train_x,train_y,test_x,test_y):
+    lr = LogisticRegression(penalty='l2', dual=False, tol=0.0001, C=1e30, fit_intercept=True, intercept_scaling=1, class_weight=None, random_state=None)
+    lr.fit(train_x,train_y)
+
+    lr_result = lr.predict(test_x)
+    fpr_lr, tpr_lr, thresholds = roc_curve(test_y, lr_result)
+    auc = auc(fpr_lr, tpr_lr)	
+
+    plotAUC(test_y,lr_result,'LR')
+
     return auc
     
-def runDecisionTree():
-    pass
